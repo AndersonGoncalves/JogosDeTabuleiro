@@ -33,8 +33,8 @@ end;
 constructor TRei.Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartidaEmXeque: Boolean; aQuantidadeMovimento: Integer = 0);
 begin
   inherited Create(aTabuleiro, aCor, aQuantidadeMovimento);
-  FPartidaEmXeque := aPartidaEmXeque;
   NomeDaPeca      := 'Rei';
+  FPartidaEmXeque := aPartidaEmXeque;
 end;
 
 procedure TRei.SalvarMovimentosPossiveis;

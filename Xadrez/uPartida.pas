@@ -1,8 +1,5 @@
 unit uPartida;
-{
-TODO: Criar os testes unitários
-https://www.devmedia.com.br/testes-unitarios-automatizados-no-delphi/28229#:~:text=O%20teste%20unit%C3%A1rio%20desse%20m%C3%A9todo,forma%20automatizada%2C%20testando%20nosso%20m%C3%A9todo
-}
+
 interface
 
 uses
@@ -142,8 +139,22 @@ var
   begin
     if (aOrigem.Coluna <> aDestino.Coluna) and (aPecaCapturada = nil) then
     begin
-      //TODO:
-      //if (aPeca.Cor = FJogadorAtual.Branca) then
+      aPosicaoPeca := TPosicao.Create;
+      try
+        if (aPeca.Cor = Branca) then
+          aPosicaoPeca.DefinirValores(aDestino.Linha + 1, aDestino.Coluna)
+        else
+          aPosicaoPeca.DefinirValores(aDestino.Linha - 1, aDestino.Coluna);
+
+        aPecaCapturada := FTabuleiro.RetirarPeca(aPosicaoPeca.Linha, aPosicaoPeca.Coluna);
+
+        if aPecaCapturada.Cor = Branca then
+          CapturarBranca(aPecaCapturada)
+        else if aPecaCapturada.Cor = Preta then
+          CapturarPreta(aPecaCapturada);
+      finally
+        aPosicaoPeca := nil;
+      end;
     end;
   end;
 
@@ -227,9 +238,24 @@ var
     FTabuleiro.ColocarPeca(Torre, OrigemTorre);
   end;
 
-  procedure DesfazEnPassant(aPeca, aPecaCapturada: IPeca; aPosOrigem, aPosDestino: IPosicao);
+  procedure DesfazEnPassant(aPeca, aPecaCapturada: IPeca; aOrigem, aDestino: IPosicao);
+  var
+    aPosicaoPeca: IPosicao;
+    peao: IPeca;
   begin
-    //TODO:
+    if (aOrigem.Coluna <> aDestino.Coluna) and (aPecaCapturada = FVulneravelEnpassant) then
+    begin
+      peao := Tabuleiro.RetirarPeca(aDestino.Linha, aDestino.Coluna);
+      try
+        if aPeca.Cor = Branca then
+          aPosicaoPeca.DefinirValores(3, aDestino.Coluna)
+        else
+          aPosicaoPeca.DefinirValores(4, aDestino.Coluna);
+        FTabuleiro.ColocarPeca(peao, aPosicaoPeca);
+      finally
+        aPosicaoPeca := nil;
+      end;
+    end;
   end;
 
 begin
@@ -413,14 +439,14 @@ begin
   ColocarNovaPeca('F', 1, TBispo.Create(FTabuleiro, Branca));
   ColocarNovaPeca('G', 1, TCavalo.Create(FTabuleiro, Branca));
   ColocarNovaPeca('H', 1, TTorre.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('A', 2, TPeao.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('B', 2, TPeao.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('C', 2, TPeao.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('D', 2, TPeao.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('E', 2, TPeao.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('F', 2, TPeao.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('G', 2, TPeao.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('H', 2, TPeao.Create(FTabuleiro, Branca));
+  ColocarNovaPeca('A', 2, TPeao.Create(FTabuleiro, Branca, Self));
+  ColocarNovaPeca('B', 2, TPeao.Create(FTabuleiro, Branca, Self));
+  ColocarNovaPeca('C', 2, TPeao.Create(FTabuleiro, Branca, Self));
+  ColocarNovaPeca('D', 2, TPeao.Create(FTabuleiro, Branca, Self));
+  ColocarNovaPeca('E', 2, TPeao.Create(FTabuleiro, Branca, Self));
+  ColocarNovaPeca('F', 2, TPeao.Create(FTabuleiro, Branca, Self));
+  ColocarNovaPeca('G', 2, TPeao.Create(FTabuleiro, Branca, Self));
+  ColocarNovaPeca('H', 2, TPeao.Create(FTabuleiro, Branca, Self));
   ColocarNovaPeca('A', 8, TTorre.Create(FTabuleiro, Preta));
   ColocarNovaPeca('B', 8, TCavalo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('C', 8, TBispo.Create(FTabuleiro, Preta));
@@ -429,14 +455,14 @@ begin
   ColocarNovaPeca('F', 8, TBispo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('G', 8, TCavalo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('H', 8, TTorre.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('A', 7, TPeao.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('B', 7, TPeao.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('C', 7, TPeao.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('D', 7, TPeao.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('E', 7, TPeao.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('F', 7, TPeao.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('G', 7, TPeao.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('H', 7, TPeao.Create(FTabuleiro, Preta));
+  ColocarNovaPeca('A', 7, TPeao.Create(FTabuleiro, Preta, Self));
+  ColocarNovaPeca('B', 7, TPeao.Create(FTabuleiro, Preta, Self));
+  ColocarNovaPeca('C', 7, TPeao.Create(FTabuleiro, Preta, Self));
+  ColocarNovaPeca('D', 7, TPeao.Create(FTabuleiro, Preta, Self));
+  ColocarNovaPeca('E', 7, TPeao.Create(FTabuleiro, Preta, Self));
+  ColocarNovaPeca('F', 7, TPeao.Create(FTabuleiro, Preta, Self));
+  ColocarNovaPeca('G', 7, TPeao.Create(FTabuleiro, Preta, Self));
+  ColocarNovaPeca('H', 7, TPeao.Create(FTabuleiro, Preta, Self));
 end;
 
 procedure TPartida.ColocarNovaPeca(aColuna: char; aLinha: Integer; aPeca: IPeca);
@@ -454,7 +480,7 @@ end;
 
 procedure TPartida.RealizarJogada(aOrigem, aDestino: IPosicao);
 var
-  pecaCapturada: IPeca;
+  pecaCapturada, peca: IPeca;
 begin
   Tabuleiro.GetPeca(aOrigem).SalvarMovimentosPossiveis;
   ValidarPosicaoDeOrigem(aOrigem);
@@ -475,6 +501,12 @@ begin
     Inc(FTurno);
     MudarJogador;
   end;
+
+  peca := Tabuleiro.GetPeca(aDestino);
+  if (peca is TPeao) and ((aDestino.Linha = aOrigem.Linha - 2) or (aDestino.Linha = aOrigem.Linha + 2) ) then
+    FVulneravelEnpassant := peca
+  else
+    FVulneravelEnpassant := nil;
 end;
 
 function TPartida.Rei(aCor: TCor): IPeca;

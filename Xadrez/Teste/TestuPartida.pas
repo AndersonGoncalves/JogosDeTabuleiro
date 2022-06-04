@@ -22,6 +22,8 @@ type
     procedure XequeMateComTorres;
     procedure XequeMateNaPrimeiraFileira;
     procedure XequeMateSubPromocao;
+    procedure CapturarPeaoPretoVulneravelEnpassant;
+    procedure CapturarPeaoBrancoVulneravelEnpassant;
   end;
 
 implementation
@@ -39,6 +41,41 @@ end;
 procedure TestTPartida.VerificaXequeMate;
 begin
   CheckTrue(FPartida.Terminada, 'Partida não terminada');
+end;
+
+procedure TestTPartida.CapturarPeaoBrancoVulneravelEnpassant;
+
+procedure RealizarJogadas;
+  begin
+    RealizarJogada('G2', 'G4');
+    RealizarJogada('B7', 'B5');
+    RealizarJogada('G4', 'G5');
+    RealizarJogada('B5', 'B4');
+    RealizarJogada('C2', 'C4');
+    RealizarJogada('B4', 'C3');
+    {Capturar o branco
+    RealizarJogada('D2', 'C3');
+    RealizarJogada('F7', 'F5');
+    RealizarJogada('G5', 'G6');}
+  end;
+
+begin
+  RealizarJogadas;
+end;
+
+procedure TestTPartida.CapturarPeaoPretoVulneravelEnpassant;
+
+  procedure RealizarJogadas;
+  begin
+    RealizarJogada('E2', 'E4');
+    RealizarJogada('B8', 'C6');
+    RealizarJogada('E4', 'E5');
+    RealizarJogada('D7', 'D5');
+    RealizarJogada('E5', 'D6');
+  end;
+
+begin
+  RealizarJogadas;
 end;
 
 procedure TestTPartida.RealizarJogada(aOrigem, aDestino: string);
@@ -135,20 +172,20 @@ procedure TestTPartida.XequeMateNaPrimeiraFileira;
     FPartida.ColocarNovaPeca('C', 8, TBispo.Create(FPartida.Tabuleiro, Preta, 1));
     FPartida.ColocarNovaPeca('F', 8, TRainha.Create(FPartida.Tabuleiro, Preta, 1));
     FPartida.ColocarNovaPeca('H', 8, TRei.Create(FPartida.Tabuleiro, Preta, FPartida.Xeque, 1));
-    FPartida.ColocarNovaPeca('A', 7, TPeao.Create(FPartida.Tabuleiro, Preta, 1));
-    FPartida.ColocarNovaPeca('B', 7, TPeao.Create(FPartida.Tabuleiro, Preta, 1));
-    FPartida.ColocarNovaPeca('G', 7, TPeao.Create(FPartida.Tabuleiro, Preta, 1));
-    FPartida.ColocarNovaPeca('H', 7, TPeao.Create(FPartida.Tabuleiro, Preta, 1));
-    FPartida.ColocarNovaPeca('C', 6, TPeao.Create(FPartida.Tabuleiro, Preta, 1));
-    FPartida.ColocarNovaPeca('F', 5, TPeao.Create(FPartida.Tabuleiro, Preta, 1));
+    FPartida.ColocarNovaPeca('A', 7, TPeao.Create(FPartida.Tabuleiro, Preta, FPartida, 1));
+    FPartida.ColocarNovaPeca('B', 7, TPeao.Create(FPartida.Tabuleiro, Preta, FPartida, 1));
+    FPartida.ColocarNovaPeca('G', 7, TPeao.Create(FPartida.Tabuleiro, Preta, FPartida, 1));
+    FPartida.ColocarNovaPeca('H', 7, TPeao.Create(FPartida.Tabuleiro, Preta, FPartida, 1));
+    FPartida.ColocarNovaPeca('C', 6, TPeao.Create(FPartida.Tabuleiro, Preta, FPartida, 1));
+    FPartida.ColocarNovaPeca('F', 5, TPeao.Create(FPartida.Tabuleiro, Preta, FPartida, 1));
     FPartida.ColocarNovaPeca('B', 3, TBispo.Create(FPartida.Tabuleiro, Branca, 1));
-    FPartida.ColocarNovaPeca('C', 3, TPeao.Create(FPartida.Tabuleiro, Branca, 1));
-    FPartida.ColocarNovaPeca('H', 3, TPeao.Create(FPartida.Tabuleiro, Branca, 1));
-    FPartida.ColocarNovaPeca('A', 2, TPeao.Create(FPartida.Tabuleiro, Branca, 1));
-    FPartida.ColocarNovaPeca('B', 2, TPeao.Create(FPartida.Tabuleiro, Branca, 1));
+    FPartida.ColocarNovaPeca('C', 3, TPeao.Create(FPartida.Tabuleiro, Branca, FPartida, 1));
+    FPartida.ColocarNovaPeca('H', 3, TPeao.Create(FPartida.Tabuleiro, Branca, FPartida, 1));
+    FPartida.ColocarNovaPeca('A', 2, TPeao.Create(FPartida.Tabuleiro, Branca, FPartida, 1));
+    FPartida.ColocarNovaPeca('B', 2, TPeao.Create(FPartida.Tabuleiro, Branca, FPartida, 1));
     FPartida.ColocarNovaPeca('D', 2, TRainha.Create(FPartida.Tabuleiro, Branca, 1));
-    FPartida.ColocarNovaPeca('F', 2, TPeao.Create(FPartida.Tabuleiro, Branca, 1));
-    FPartida.ColocarNovaPeca('G', 2, TPeao.Create(FPartida.Tabuleiro, Branca, 1));
+    FPartida.ColocarNovaPeca('F', 2, TPeao.Create(FPartida.Tabuleiro, Branca, FPartida, 1));
+    FPartida.ColocarNovaPeca('G', 2, TPeao.Create(FPartida.Tabuleiro, Branca, FPartida, 1));
     FPartida.ColocarNovaPeca('E', 1, TTorre.Create(FPartida.Tabuleiro, Branca, 1));
     FPartida.ColocarNovaPeca('G', 1, TRei.Create(FPartida.Tabuleiro, Branca, FPartida.Xeque, 1));
   end;
@@ -175,7 +212,7 @@ procedure TestTPartida.XequeMateSubPromocao;
 begin
   FPartida.RetirarTodasPecasDoTabuleiro;
 
-  FPartida.ColocarNovaPeca('F', 7, TPeao.Create(FPartida.Tabuleiro, Branca, 1));
+  FPartida.ColocarNovaPeca('F', 7, TPeao.Create(FPartida.Tabuleiro, Branca, FPartida, 1));
   FPartida.ColocarNovaPeca('H', 7, TRei.Create(FPartida.Tabuleiro, Preta, FPartida.Xeque, 1));
   FPartida.ColocarNovaPeca('E', 6, TRainha.Create(FPartida.Tabuleiro, Preta, 1));
   FPartida.ColocarNovaPeca('D', 4, TBispo.Create(FPartida.Tabuleiro, Preta, 1));
@@ -190,7 +227,7 @@ begin
   FPartida.Reiniciar;
   FPartida.RetirarTodasPecasDoTabuleiro;
 
-  FPartida.ColocarNovaPeca('B', 7, TPeao.Create(FPartida.Tabuleiro, Branca, 1));
+  FPartida.ColocarNovaPeca('B', 7, TPeao.Create(FPartida.Tabuleiro, Branca, FPartida, 1));
   FPartida.ColocarNovaPeca('H', 7, TRei.Create(FPartida.Tabuleiro, Preta, FPartida.Xeque, 1));
   FPartida.ColocarNovaPeca('E', 6, TRainha.Create(FPartida.Tabuleiro, Preta, 1));
   FPartida.ColocarNovaPeca('D', 4, TBispo.Create(FPartida.Tabuleiro, Preta, 1));

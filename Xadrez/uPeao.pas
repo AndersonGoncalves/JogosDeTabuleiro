@@ -3,15 +3,17 @@ unit uPeao;
 interface
 
 uses
-  uPeca, uITabuleiro, uCor, uPosicao;
+  uPeca, uITabuleiro, uCor, uPosicao, uIPartida;
 
 type
   TPeao = class(TPeca)
   private
+    FPartida: IPartida;
     function ExisteAdversario(aPosicao: IPosicao): Boolean;
     function Livre(aPosicao: IPosicao): Boolean;
   public
-    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor); overload;
+    property Partida: IPartida read FPartida write FPartida;
+    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartida: IPartida; aQuantidadeMovimento: Integer = 0); reintroduce;
     procedure SalvarMovimentosPossiveis; override;
   end;
 
@@ -19,10 +21,11 @@ implementation
 
 { TPeao }
 
-constructor TPeao.Create(aTabuleiro: ITabuleiro; aCor: TCor);
+constructor TPeao.Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartida: IPartida; aQuantidadeMovimento: Integer = 0);
 begin
-  inherited Create(aTabuleiro, aCor);
+  inherited Create(aTabuleiro, aCor, aQuantidadeMovimento);
   NomeDaPeca := 'Peão';
+  FPartida   := aPartida;
 end;
 
 function TPeao.ExisteAdversario(aPosicao: IPosicao): Boolean;
@@ -62,7 +65,16 @@ begin
       MovimentosPossiveis[posicaoAux.Linha, posicaoAux.Coluna] := True;
 
     {$REGION 'en Passant'}
-    //TODO:
+    if Posicao.Linha = 3 then
+    begin
+      posicaoAux.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+      if (Tabuleiro.PosicaoValida(posicaoAux.Linha, posicaoAux.Coluna)) and (ExisteAdversario(posicaoAux)) and (Tabuleiro.GetPeca(posicaoAux) = FPartida.VulneravelEnpassant) then
+        MovimentosPossiveis[posicaoAux.Linha - 1, posicaoAux.Coluna] := True;
+
+      posicaoAux.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
+      if (Tabuleiro.PosicaoValida(posicaoAux.Linha, posicaoAux.Coluna)) and (ExisteAdversario(posicaoAux)) and (Tabuleiro.GetPeca(posicaoAux) = FPartida.VulneravelEnpassant) then
+        MovimentosPossiveis[posicaoAux.Linha - 1, posicaoAux.Coluna] := True;
+    end;
     {$ENDREGION}
   end
   else
@@ -84,7 +96,16 @@ begin
       MovimentosPossiveis[posicaoAux.Linha, posicaoAux.Coluna] := True;
 
     {$REGION 'en Passant'}
-    //TODO:
+    if Posicao.Linha = 4 then
+    begin
+      posicaoAux.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+      if (Tabuleiro.PosicaoValida(posicaoAux.Linha, posicaoAux.Coluna)) and (ExisteAdversario(posicaoAux)) and (Tabuleiro.GetPeca(posicaoAux) = FPartida.VulneravelEnpassant) then
+        MovimentosPossiveis[posicaoAux.Linha + 1, posicaoAux.Coluna] := True;
+
+      posicaoAux.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
+      if (Tabuleiro.PosicaoValida(posicaoAux.Linha, posicaoAux.Coluna)) and (ExisteAdversario(posicaoAux)) and (Tabuleiro.GetPeca(posicaoAux) = FPartida.VulneravelEnpassant) then
+        MovimentosPossiveis[posicaoAux.Linha + 1, posicaoAux.Coluna] := True;
+    end;
     {$ENDREGION}
   end;
   {$ENDREGION}
