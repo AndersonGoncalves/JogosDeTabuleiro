@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/06/09 16:32:52.000.301,=C:\Users\annde\OneDrive\Backup\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/06/09 17:05:26.000.502,=C:\Users\annde\OneDrive\Backup\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 07:57:13.000.510,D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\Xadrez.Console.dproj=C:\Users\Anderson Gonçalves\OneDrive\Backup\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021/12/22 07:58:10.000.960,=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uTabuleiro.pas</Transaction>
+    <Transaction>2021/12/22 07:58:20.000.468,=D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\uTela.pas</Transaction>
+    <Transaction>2021/12/22 07:59:48.000.486,=D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 08:00:01.000.561,D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uPosicao.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 08:01:10.000.245,=D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 08:01:22.000.230,D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uPeca.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 08:05:30.000.981,=D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 08:05:52.000.003,D:\Projetos\Jogos de Tabuleiro\Tabuleiro\iTabuleiro.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 08:17:23.000.479,=D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 08:17:35.000.473,D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uCor.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez - Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 13:07:47.000.727,=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uCor.pas</Transaction>
+    <Transaction>2021/12/22 13:07:47.000.750,=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uPosicao.pas</Transaction>
+    <Transaction>2021/12/22 13:07:47.000.882,=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uTabuleiro.pas</Transaction>
+    <Transaction>2021/12/22 13:08:23.000.509,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\uTela.pas</Transaction>
+    <Transaction>2021/12/22 13:14:09.000.846,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 13:14:27.000.787,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Peças\uRei.pas</Transaction>
+    <Transaction>2021/12/22 13:42:06.000.874,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 13:42:20.000.096,D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uTorre.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 15:02:07.000.570,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 15:02:33.000.044,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uTabuleiroException.pas</Transaction>
+    <Transaction>2021/12/22 15:17:35.000.425,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/22 15:24:09.000.321,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uPosisaoXadrez.pas</Transaction>
+    <Transaction>2021/12/24 10:21:27.000.612,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/24 10:21:55.000.453,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uRainha.pas</Transaction>
+    <Transaction>2021/12/24 10:23:54.000.415,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/24 10:24:07.000.854,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uBispo.pas</Transaction>
+    <Transaction>2021/12/24 10:25:23.000.255,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/24 10:25:34.000.812,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uCavalo.pas</Transaction>
+    <Transaction>2021/12/24 10:26:34.000.969,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/24 10:27:58.000.658,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uPeao.pas</Transaction>
+    <Transaction>2021/12/24 14:05:15.000.067,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/24 14:06:30.000.785,D:\Projetos\Jogos de Tabuleiro\Xadrez\uPartida.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/24 14:40:35.000.475,=D:\Projetos\Jogos de Tabuleiro\Xadrez\uPosicaoXadrez.pas</Transaction>
+    <Transaction>2021/12/25 16:12:04.000.528,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/25 16:12:34.000.113,D:\Projetos\Jogos de Tabuleiro\Xadrez\uXadrezException.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/28 23:21:17.000.477,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/28 23:22:16.000.024,D:\Projetos\Jogos de Tabuleiro\Xadrez\uSingleton.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/29 12:39:48.000.511,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2021/12/29 12:40:00.000.870,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uPeca.pas</Transaction>
+    <Transaction>2021/12/29 13:15:24.000.996,=D:\Projetos\Jogos de Tabuleiro\Comum\uSingleton.pas</Transaction>
+    <Transaction>2021/12/29 17:02:58.000.145,=D:\Projetos\Jogos de Tabuleiro\Comum\uSingleton.pas</Transaction>
+    <Transaction>2021/12/29 17:04:53.000.468,=D:\Projetos\Jogos de Tabuleiro\Comum\uSingleton.pas</Transaction>
+    <Transaction>2021/12/29 17:16:17.000.835,=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uCor.pas</Transaction>
+    <Transaction>2021/12/29 17:16:17.000.862,=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uPosicao.pas</Transaction>
+    <Transaction>2021/12/29 17:16:19.000.887,=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uTabuleiroException.pas</Transaction>
+    <Transaction>2021/12/29 17:16:19.000.856,=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uTabuleiro.pas</Transaction>
+    <Transaction>2021/12/29 17:17:01.000.971,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uPeao.pas</Transaction>
+    <Transaction>2021/12/29 17:17:01.000.928,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uBispo.pas</Transaction>
+    <Transaction>2021/12/29 17:17:01.000.951,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uCavalo.pas</Transaction>
+    <Transaction>2021/12/29 17:17:01.000.994,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uRainha.pas</Transaction>
+    <Transaction>2021/12/29 17:17:02.000.014,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uRei.pas</Transaction>
+    <Transaction>2021/12/29 17:17:02.000.035,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Pecas\uTorre.pas</Transaction>
+    <Transaction>2021/12/29 17:17:16.000.139,=D:\Projetos\Jogos de Tabuleiro\Xadrez\uPosicaoXadrez.pas</Transaction>
+    <Transaction>2021/12/29 17:17:16.000.180,=D:\Projetos\Jogos de Tabuleiro\Xadrez\uXadrezException.pas</Transaction>
+    <Transaction>2021/12/29 17:17:16.000.098,=D:\Projetos\Jogos de Tabuleiro\Xadrez\uPartida.pas</Transaction>
+    <Transaction>2022/01/18 22:02:04.000.335,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2022/01/18 22:07:48.000.612,D:\Projetos\Jogos de Tabuleiro\Comum\uITabuleiro.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2022/01/18 22:14:23.000.869,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2022/01/18 22:14:41.000.935,D:\Projetos\Jogos de Tabuleiro\Comum\uIPeca.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2022/03/28 17:47:01.000.447,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2022/03/28 17:47:39.000.657,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Xadrez\uIPartida.pas</Transaction>
+    <Transaction>2022/03/28 17:53:46.000.380,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2022/03/28 17:54:09.000.734,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uITabuleiro.pas</Transaction>
+    <Transaction>2022/03/28 18:03:00.000.187,=D:\Projetos\Jogos de Tabuleiro\Xadrez\uIPartida.pas</Transaction>
+    <Transaction>2022/03/28 18:23:07.000.743,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas</Transaction>
+    <Transaction>2022/03/28 18:23:42.000.515,D:\Projetos\Jogos de Tabuleiro\Xadrez\Console\Unit1.pas=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uPeca.pas</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile iOSSimulator="iPhone5"/>
+	</ActiveMobileDevice>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="..\..\Xadrez"/>
+    <File Path="..\uPartida.pas"/>
+    <File Path="..\uPosicaoXadrez.pas"/>
+    <File Path="..\uXadrezException.pas"/>
+    <File Path="..\uIPartida.pas"/>
+    <File Path="..\uBispo.pas"/>
+    <File Path="..\uCavalo.pas"/>
+    <File Path="..\uPeao.pas"/>
+    <File Path="..\uRainha.pas"/>
+    <File Path="..\uRei.pas"/>
+    <File Path="..\uTorre.pas"/>
+    <File Path="..\..\..\Jogos de Tabuleiro"/>
+    <File Path="..\..\Comum"/>
+    <File Path="..\..\Comum\uSingleton.pas"/>
+    <File Path="..\..\Tabuleiro"/>
+    <File Path="..\..\Tabuleiro\uCor.pas"/>
+    <File Path="..\..\Tabuleiro\uPosicao.pas"/>
+    <File Path="..\..\Tabuleiro\uTabuleiro.pas"/>
+    <File Path="..\..\Tabuleiro\uTabuleiroException.pas"/>
+    <File Path="..\..\Tabuleiro\uITabuleiro.pas"/>
+    <File Path="..\..\Tabuleiro\uPeca.pas"/>
+    <File Path="uTela.pas"/>
+  </ProjectSortOrder>
+</BorlandProject>

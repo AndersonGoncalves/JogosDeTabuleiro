@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{0A7BC52E-2060-4FAA-B53D-3246471AA69C}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Xadrez\Console\Xadrez.Console.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Xadrez\Teste\Xadrez.Teste.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Xadrez_Console">
+        <MSBuild Projects="Xadrez\Console\Xadrez.Console.dproj"/>
+    </Target>
+    <Target Name="Xadrez_Console:Clean">
+        <MSBuild Projects="Xadrez\Console\Xadrez.Console.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Xadrez_Console:Make">
+        <MSBuild Projects="Xadrez\Console\Xadrez.Console.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Xadrez_Teste">
+        <MSBuild Projects="Xadrez\Teste\Xadrez.Teste.dproj"/>
+    </Target>
+    <Target Name="Xadrez_Teste:Clean">
+        <MSBuild Projects="Xadrez\Teste\Xadrez.Teste.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Xadrez_Teste:Make">
+        <MSBuild Projects="Xadrez\Teste\Xadrez.Teste.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Xadrez_Console;Xadrez_Teste"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Xadrez_Console:Clean;Xadrez_Teste:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Xadrez_Console:Make;Xadrez_Teste:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

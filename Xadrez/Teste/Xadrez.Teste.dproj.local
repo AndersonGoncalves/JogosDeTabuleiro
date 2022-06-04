@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/03/29 10:50:18.000.825,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Teste\TestuTabuleiro.pas</Transaction>
+    <Transaction>2022/03/29 10:50:19.000.034,=D:\Projetos\Jogos de Tabuleiro\Tabuleiro\uTabuleiro.pas</Transaction>
+    <Transaction>2022/03/29 11:02:47.000.562,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Teste\TestuPartida.pas</Transaction>
+    <Transaction>2022/03/29 11:06:27.000.351,=D:\Projetos\Jogos de Tabuleiro\Xadrez\Teste\TestuPartida.pas</Transaction>
+  </Transactions>
+</BorlandProject>
