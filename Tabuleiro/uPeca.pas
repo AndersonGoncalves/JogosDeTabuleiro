@@ -33,7 +33,7 @@ type
     property QuantidadeMovimento : Integer              read GetQuantidadeMovimento write SetQuantidadeMovimento;
     property MovimentosPossiveis : TArrayOfArrayBoolean read GetMovimentosPossiveis write SetMovimentosPossiveis;
     property NomeDaPeca          : String               read GetNomeDaPeca          write SetNomeDaPeca;
-    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor; aQuantidadeMovimento: Integer = 0); overload;
+    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor); overload;
     procedure IncrementarQuantidadeMovimento;
     procedure DecrementarQuantidadeMovimento;
     function MovimentoPossivel(aLinha, aColuna: Integer): Boolean;
@@ -47,12 +47,12 @@ implementation
 
 { TPeca }
 
-constructor TPeca.Create(aTabuleiro: ITabuleiro; aCor: TCor; aQuantidadeMovimento: Integer = 0);
+constructor TPeca.Create(aTabuleiro: ITabuleiro; aCor: TCor);
 begin
   FTabuleiro           := aTabuleiro;
   FCor                 := aCor;
   FPosicao             := nil;
-  FQuantidadeMovimento := aQuantidadeMovimento;
+  FQuantidadeMovimento := 0;
   FNomedaPeca          := EmptyStr;
   SetLength(FMovimentosPossiveis, aTabuleiro.Linhas, aTabuleiro.Colunas);
 end;

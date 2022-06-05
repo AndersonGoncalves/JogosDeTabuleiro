@@ -13,7 +13,7 @@ type
     function Livre(aPosicao: IPosicao): Boolean;
   public
     property Partida: IPartida read FPartida write FPartida;
-    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartida: IPartida; aQuantidadeMovimento: Integer = 0); reintroduce;
+    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartida: IPartida); overload;
     procedure SalvarMovimentosPossiveis; override;
   end;
 
@@ -21,9 +21,9 @@ implementation
 
 { TPeao }
 
-constructor TPeao.Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartida: IPartida; aQuantidadeMovimento: Integer = 0);
+constructor TPeao.Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartida: IPartida);
 begin
-  inherited Create(aTabuleiro, aCor, aQuantidadeMovimento);
+  inherited Create(aTabuleiro, aCor);
   NomeDaPeca := 'Peão';
   FPartida   := aPartida;
 end;

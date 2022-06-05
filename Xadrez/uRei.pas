@@ -12,7 +12,7 @@ type
     function TesteTorreParaRoque(aPosicao: IPosicao): Boolean;
   public
     property PartidaEmXeque: Boolean read FPartidaEmXeque write FPartidaEmXeque;
-    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartidaEmXeque: Boolean; aQuantidadeMovimento: Integer = 0); reintroduce;
+    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartidaEmXeque: Boolean); overload;
     procedure SalvarMovimentosPossiveis; override;
   end;
 
@@ -30,9 +30,9 @@ begin
     Result := (Peca is TTorre) and (Peca.Cor = Cor) and (Peca.QuantidadeMovimento = 0);
 end;
 
-constructor TRei.Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartidaEmXeque: Boolean; aQuantidadeMovimento: Integer = 0);
+constructor TRei.Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartidaEmXeque: Boolean);
 begin
-  inherited Create(aTabuleiro, aCor, aQuantidadeMovimento);
+  inherited Create(aTabuleiro, aCor);
   NomeDaPeca      := 'Rei';
   FPartidaEmXeque := aPartidaEmXeque;
 end;
