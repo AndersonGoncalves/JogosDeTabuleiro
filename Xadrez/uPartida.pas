@@ -25,6 +25,7 @@ type
     function Rei(aCor: TCor): IPeca;
     function ReiEstaEmXeque(aCor: TCor): Boolean;
     function TesteXequeMate(aCor: TCor): Boolean;
+    procedure LimparPeoesVulneraveisEnPassant;
   protected
     function GetTabuleiro: ITabuleiro;
     procedure SetTabuleiro(const Value: ITabuleiro);
@@ -429,6 +430,22 @@ begin
   end;
 end;
 
+procedure TPartida.LimparPeoesVulneraveisEnPassant;
+begin
+  FVulneravelEnpassant := nil;
+  for var i: integer := 0 to FTabuleiro.Linhas - 1 do
+  begin
+    for var j: integer := 0 to FTabuleiro.Colunas - 1 do
+    begin
+      if FTabuleiro.Pecas[i, j] <> nil then
+      begin
+        if (FTabuleiro.Pecas[i, j] is TPeao) then
+          TPeao(FTabuleiro.Pecas[i, j]).VulneravelEnpassant := False;
+      end;
+    end;
+  end;
+end;
+
 procedure TPartida.ColocarPecasNoTabuleiro;
 begin
   ColocarNovaPeca('A', 1, TTorre.Create(FTabuleiro, Branca));
@@ -439,14 +456,14 @@ begin
   ColocarNovaPeca('F', 1, TBispo.Create(FTabuleiro, Branca));
   ColocarNovaPeca('G', 1, TCavalo.Create(FTabuleiro, Branca));
   ColocarNovaPeca('H', 1, TTorre.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('A', 2, TPeao.Create(FTabuleiro, Branca, Self));
-  ColocarNovaPeca('B', 2, TPeao.Create(FTabuleiro, Branca, Self));
-  ColocarNovaPeca('C', 2, TPeao.Create(FTabuleiro, Branca, Self));
-  ColocarNovaPeca('D', 2, TPeao.Create(FTabuleiro, Branca, Self));
-  ColocarNovaPeca('E', 2, TPeao.Create(FTabuleiro, Branca, Self));
-  ColocarNovaPeca('F', 2, TPeao.Create(FTabuleiro, Branca, Self));
-  ColocarNovaPeca('G', 2, TPeao.Create(FTabuleiro, Branca, Self));
-  ColocarNovaPeca('H', 2, TPeao.Create(FTabuleiro, Branca, Self));
+  ColocarNovaPeca('A', 2, TPeao.Create(FTabuleiro, Branca));
+  ColocarNovaPeca('B', 2, TPeao.Create(FTabuleiro, Branca));
+  ColocarNovaPeca('C', 2, TPeao.Create(FTabuleiro, Branca));
+  ColocarNovaPeca('D', 2, TPeao.Create(FTabuleiro, Branca));
+  ColocarNovaPeca('E', 2, TPeao.Create(FTabuleiro, Branca));
+  ColocarNovaPeca('F', 2, TPeao.Create(FTabuleiro, Branca));
+  ColocarNovaPeca('G', 2, TPeao.Create(FTabuleiro, Branca));
+  ColocarNovaPeca('H', 2, TPeao.Create(FTabuleiro, Branca));
   ColocarNovaPeca('A', 8, TTorre.Create(FTabuleiro, Preta));
   ColocarNovaPeca('B', 8, TCavalo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('C', 8, TBispo.Create(FTabuleiro, Preta));
@@ -455,14 +472,14 @@ begin
   ColocarNovaPeca('F', 8, TBispo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('G', 8, TCavalo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('H', 8, TTorre.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('A', 7, TPeao.Create(FTabuleiro, Preta, Self));
-  ColocarNovaPeca('B', 7, TPeao.Create(FTabuleiro, Preta, Self));
-  ColocarNovaPeca('C', 7, TPeao.Create(FTabuleiro, Preta, Self));
-  ColocarNovaPeca('D', 7, TPeao.Create(FTabuleiro, Preta, Self));
-  ColocarNovaPeca('E', 7, TPeao.Create(FTabuleiro, Preta, Self));
-  ColocarNovaPeca('F', 7, TPeao.Create(FTabuleiro, Preta, Self));
-  ColocarNovaPeca('G', 7, TPeao.Create(FTabuleiro, Preta, Self));
-  ColocarNovaPeca('H', 7, TPeao.Create(FTabuleiro, Preta, Self));
+  ColocarNovaPeca('A', 7, TPeao.Create(FTabuleiro, Preta));
+  ColocarNovaPeca('B', 7, TPeao.Create(FTabuleiro, Preta));
+  ColocarNovaPeca('C', 7, TPeao.Create(FTabuleiro, Preta));
+  ColocarNovaPeca('D', 7, TPeao.Create(FTabuleiro, Preta));
+  ColocarNovaPeca('E', 7, TPeao.Create(FTabuleiro, Preta));
+  ColocarNovaPeca('F', 7, TPeao.Create(FTabuleiro, Preta));
+  ColocarNovaPeca('G', 7, TPeao.Create(FTabuleiro, Preta));
+  ColocarNovaPeca('H', 7, TPeao.Create(FTabuleiro, Preta));
 end;
 
 procedure TPartida.ColocarNovaPeca(aColuna: char; aLinha: Integer; aPeca: IPeca);
@@ -480,7 +497,7 @@ end;
 
 procedure TPartida.RealizarJogada(aOrigem, aDestino: IPosicao);
 var
-  pecaCapturada, peca: IPeca;
+  pecaCapturada: IPeca;
 begin
   Tabuleiro.GetPeca(aOrigem).SalvarMovimentosPossiveis;
   ValidarPosicaoDeOrigem(aOrigem);
@@ -502,11 +519,12 @@ begin
     MudarJogador;
   end;
 
-  peca := Tabuleiro.GetPeca(aDestino);
-  if (peca is TPeao) and ((aDestino.Linha = aOrigem.Linha - 2) or (aDestino.Linha = aOrigem.Linha + 2) ) then
-    FVulneravelEnpassant := peca
-  else
-    FVulneravelEnpassant := nil;
+  LimparPeoesVulneraveisEnPassant;
+  if (Tabuleiro.GetPeca(aDestino) is TPeao) and ((aDestino.Linha = aOrigem.Linha - 2) or (aDestino.Linha = aOrigem.Linha + 2)) then
+  begin
+    FVulneravelEnpassant := Tabuleiro.GetPeca(aDestino);
+    TPeao(Tabuleiro.GetPeca(aDestino)).VulneravelEnpassant := True;
+  end;
 end;
 
 function TPartida.Rei(aCor: TCor): IPeca;
