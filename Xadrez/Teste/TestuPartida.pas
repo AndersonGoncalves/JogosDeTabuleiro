@@ -25,6 +25,7 @@ type
     procedure CapturarPeaoPretoVulneravelEnpassant;
     procedure CapturarPeaoBrancoVulneravelEnpassant;
     procedure PeaoPretoNaoEstaMaisVulneravelEnpassant;
+    procedure NaoPermitirRoqueComReiEmXeque;
   end;
 
 implementation
@@ -73,6 +74,71 @@ procedure TestTPartida.CapturarPeaoPretoVulneravelEnpassant;
 
 begin
   RealizarJogadas;
+end;
+
+procedure TestTPartida.NaoPermitirRoqueComReiEmXeque;
+var
+  PosicaoXadrezOrigem, PosicaoXadrezDestino: TPosicaoXadrez;
+
+  procedure ColocarPecasNoTabuleiro;
+  begin
+    FPartida.ColocarNovaPeca('A', 1, TTorre.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('B', 1, TCavalo.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('C', 1, TBispo.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('D', 1, TRainha.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('E', 1, TRei.Create(FPartida.Tabuleiro, Branca).SetMovimentos(0)); //TODO
+
+    FPartida.ColocarNovaPeca('H', 1, TTorre.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('A', 2, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(0));
+    FPartida.ColocarNovaPeca('B', 2, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('C', 2, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('D', 2, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('F', 2, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('H', 2, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
+
+
+    FPartida.ColocarNovaPeca('F', 6, TTorre.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+
+    FPartida.ColocarNovaPeca('A', 8, TTorre.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('B', 8, TCavalo.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('C', 8, TBispo.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('D', 8, TRainha.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('E', 8, TRei.Create(FPartida.Tabuleiro, Preta).SetMovimentos(0));
+    FPartida.ColocarNovaPeca('F', 8, TBispo.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('G', 8, TCavalo.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('A', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('B', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('C', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('D', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('E', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('F', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('G', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('H', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
+  end;
+
+  procedure RealizarJogadas;
+  begin
+    RealizarJogada('A2', 'A4');
+    RealizarJogada('F6', 'E6');
+    CheckTrue(FPartida.Xeque, 'Partida não está em xeque');
+  end;
+
+begin
+  FPartida.RetirarTodasPecasDoTabuleiro;
+  ColocarPecasNoTabuleiro;
+  RealizarJogadas;
+  try
+    //Verificando Rei em xeque
+    PosicaoXadrezOrigem  := TPosicaoXadrez.Create('E', 1);
+    PosicaoXadrezDestino := TPosicaoXadrez.Create('G', 1);
+    CheckTrue(FPartida.Tabuleiro.GetPeca(PosicaoXadrezOrigem.ToPosicao).PodeMoverPara(PosicaoXadrezDestino.ToPosicao) = False, 'Não pode fazer o Roque com o Rei em xeque');
+  finally
+    if Assigned(PosicaoXadrezOrigem) then
+      FreeAndNil(PosicaoXadrezOrigem);
+
+    if Assigned(PosicaoXadrezDestino) then
+      FreeAndNil(PosicaoXadrezDestino);
+  end;
 end;
 
 procedure TestTPartida.PeaoPretoNaoEstaMaisVulneravelEnpassant;
@@ -178,10 +244,10 @@ procedure TestTPartida.XequeMateComTorres;
 
  procedure ColocarPecasNoTabuleiro;
  begin
-   FPartida.ColocarNovaPeca('E', 8, TRei.Create(FPartida.Tabuleiro, Preta, FPartida.Xeque).SetMovimentos(1));
+   FPartida.ColocarNovaPeca('E', 8, TRei.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
    FPartida.ColocarNovaPeca('D', 8, TTorre.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
    FPartida.ColocarNovaPeca('C', 7, TTorre.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
-   FPartida.ColocarNovaPeca('E', 1, TRei.Create(FPartida.Tabuleiro, Branca, FPartida.Xeque).SetMovimentos(1));
+   FPartida.ColocarNovaPeca('E', 1, TRei.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
  end;
 
  procedure RealizarJogadas;
@@ -206,7 +272,7 @@ procedure TestTPartida.XequeMateNaPrimeiraFileira;
     FPartida.ColocarNovaPeca('A', 8, TTorre.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
     FPartida.ColocarNovaPeca('C', 8, TBispo.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
     FPartida.ColocarNovaPeca('F', 8, TRainha.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
-    FPartida.ColocarNovaPeca('H', 8, TRei.Create(FPartida.Tabuleiro, Preta, FPartida.Xeque).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('H', 8, TRei.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
     FPartida.ColocarNovaPeca('A', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
     FPartida.ColocarNovaPeca('B', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
     FPartida.ColocarNovaPeca('G', 7, TPeao.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
@@ -222,7 +288,7 @@ procedure TestTPartida.XequeMateNaPrimeiraFileira;
     FPartida.ColocarNovaPeca('F', 2, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
     FPartida.ColocarNovaPeca('G', 2, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
     FPartida.ColocarNovaPeca('E', 1, TTorre.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
-    FPartida.ColocarNovaPeca('G', 1, TRei.Create(FPartida.Tabuleiro, Branca, FPartida.Xeque).SetMovimentos(1));
+    FPartida.ColocarNovaPeca('G', 1, TRei.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
   end;
 
   procedure RealizarJogadas;
@@ -248,10 +314,10 @@ begin
   FPartida.RetirarTodasPecasDoTabuleiro;
 
   FPartida.ColocarNovaPeca('F', 7, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
-  FPartida.ColocarNovaPeca('H', 7, TRei.Create(FPartida.Tabuleiro, Preta, FPartida.Xeque).SetMovimentos(1));
+  FPartida.ColocarNovaPeca('H', 7, TRei.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
   FPartida.ColocarNovaPeca('E', 6, TRainha.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
   FPartida.ColocarNovaPeca('D', 4, TBispo.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
-  FPartida.ColocarNovaPeca('H', 1, TRei.Create(FPartida.Tabuleiro, Branca, FPartida.Xeque).SetMovimentos(1));
+  FPartida.ColocarNovaPeca('H', 1, TRei.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
 
   RealizarJogada('F7', 'F8');
   RealizarJogada('E6', 'H3');
@@ -263,10 +329,10 @@ begin
   FPartida.RetirarTodasPecasDoTabuleiro;
 
   FPartida.ColocarNovaPeca('B', 7, TPeao.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
-  FPartida.ColocarNovaPeca('H', 7, TRei.Create(FPartida.Tabuleiro, Preta, FPartida.Xeque).SetMovimentos(1));
+  FPartida.ColocarNovaPeca('H', 7, TRei.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
   FPartida.ColocarNovaPeca('E', 6, TRainha.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
   FPartida.ColocarNovaPeca('D', 4, TBispo.Create(FPartida.Tabuleiro, Preta).SetMovimentos(1));
-  FPartida.ColocarNovaPeca('H', 1, TRei.Create(FPartida.Tabuleiro, Branca, FPartida.Xeque).SetMovimentos(1));
+  FPartida.ColocarNovaPeca('H', 1, TRei.Create(FPartida.Tabuleiro, Branca).SetMovimentos(1));
 
   RealizarJogada('B7', 'B8');
   RealizarJogada('E6', 'H3');

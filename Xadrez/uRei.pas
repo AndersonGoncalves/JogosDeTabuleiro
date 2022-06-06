@@ -8,11 +8,11 @@ uses
 type
   TRei = class(TPeca)
   private
-    FPartidaEmXeque: Boolean;
+    FReiEmXeque: Boolean;
     function TesteTorreParaRoque(aPosicao: IPosicao): Boolean;
   public
-    property PartidaEmXeque: Boolean read FPartidaEmXeque write FPartidaEmXeque;
-    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartidaEmXeque: Boolean); overload;
+    property ReiEmXeque: Boolean read FReiEmXeque write FReiEmXeque;
+    constructor Create(aTabuleiro: ITabuleiro; aCor: TCor); overload;
     procedure SalvarMovimentosPossiveis; override;
   end;
 
@@ -30,11 +30,11 @@ begin
     Result := (Peca is TTorre) and (Peca.Cor = Cor) and (Peca.QuantidadeMovimento = 0);
 end;
 
-constructor TRei.Create(aTabuleiro: ITabuleiro; aCor: TCor; aPartidaEmXeque: Boolean);
+constructor TRei.Create(aTabuleiro: ITabuleiro; aCor: TCor);
 begin
   inherited Create(aTabuleiro, aCor);
-  NomeDaPeca      := 'Rei';
-  FPartidaEmXeque := aPartidaEmXeque;
+  NomeDaPeca  := 'Rei';
+  FReiEmXeque := False;
 end;
 
 procedure TRei.SalvarMovimentosPossiveis;
@@ -84,7 +84,7 @@ begin
   {$ENDREGION}
 
   {$REGION 'Roque'}
-  if (QuantidadeMovimento = 0) and (not FPartidaEmXeque) then
+  if (QuantidadeMovimento = 0) and (not FReiEmXeque) then
   begin
     //Roque pequeno
     posicaoTorre1 := TPosicao.Create(Posicao.Linha, Posicao.Coluna + 3);

@@ -26,6 +26,8 @@ type
     function ReiEstaEmXeque(aCor: TCor): Boolean;
     function TesteXequeMate(aCor: TCor): Boolean;
     procedure LimparPeoesVulneraveisEnPassant;
+    procedure SetReiEmXeque(aCor: TCor);
+    procedure LimparReisEmXeque;
   protected
     function GetTabuleiro: ITabuleiro;
     procedure SetTabuleiro(const Value: ITabuleiro);
@@ -376,6 +378,24 @@ begin
   FVulneravelEnpassant := Value;
 end;
 
+procedure TPartida.SetReiEmXeque(aCor: TCor);
+begin
+  for var i: integer := 0 to FTabuleiro.Linhas - 1 do
+  begin
+    for var j: integer := 0 to FTabuleiro.Colunas - 1 do
+    begin
+      if FTabuleiro.Pecas[i, j] <> nil then
+      begin
+        if (FTabuleiro.Pecas[i, j] is TRei) and (FTabuleiro.Pecas[i, j].Cor = aCor) then
+        begin
+          TRei(FTabuleiro.Pecas[i, j]).ReiEmXeque := True;
+          Break;
+        end;
+      end;
+    end;
+  end;
+end;
+
 procedure TPartida.SetXeque(const Value: Boolean);
 begin
   FXeque := Value;
@@ -446,13 +466,28 @@ begin
   end;
 end;
 
+procedure TPartida.LimparReisEmXeque;
+begin
+  for var i: integer := 0 to FTabuleiro.Linhas - 1 do
+  begin
+    for var j: integer := 0 to FTabuleiro.Colunas - 1 do
+    begin
+      if FTabuleiro.Pecas[i, j] <> nil then
+      begin
+        if (FTabuleiro.Pecas[i, j] is TRei) then
+          TRei(FTabuleiro.Pecas[i, j]).ReiEmXeque := False;
+      end;
+    end;
+  end;
+end;
+
 procedure TPartida.ColocarPecasNoTabuleiro;
 begin
   ColocarNovaPeca('A', 1, TTorre.Create(FTabuleiro, Branca));
   ColocarNovaPeca('B', 1, TCavalo.Create(FTabuleiro, Branca));
   ColocarNovaPeca('C', 1, TBispo.Create(FTabuleiro, Branca));
   ColocarNovaPeca('D', 1, TRainha.Create(FTabuleiro, Branca));
-  ColocarNovaPeca('E', 1, TRei.Create(FTabuleiro, Branca, Self.FXeque));
+  ColocarNovaPeca('E', 1, TRei.Create(FTabuleiro, Branca));
   ColocarNovaPeca('F', 1, TBispo.Create(FTabuleiro, Branca));
   ColocarNovaPeca('G', 1, TCavalo.Create(FTabuleiro, Branca));
   ColocarNovaPeca('H', 1, TTorre.Create(FTabuleiro, Branca));
@@ -468,7 +503,7 @@ begin
   ColocarNovaPeca('B', 8, TCavalo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('C', 8, TBispo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('D', 8, TRainha.Create(FTabuleiro, Preta));
-  ColocarNovaPeca('E', 8, TRei.Create(FTabuleiro, Preta, Self.FXeque));
+  ColocarNovaPeca('E', 8, TRei.Create(FTabuleiro, Preta));
   ColocarNovaPeca('F', 8, TBispo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('G', 8, TCavalo.Create(FTabuleiro, Preta));
   ColocarNovaPeca('H', 8, TTorre.Create(FTabuleiro, Preta));
@@ -511,7 +546,12 @@ begin
     raise XadrezException.Create('Você não pode se colocar em xeque!');
   end;
 
-  FXeque     := ReiEstaEmXeque(Adversario(FJogadorAtual));
+  LimparReisEmXeque;
+  FXeque := ReiEstaEmXeque(Adversario(FJogadorAtual));
+
+  if FXeque then
+    SetReiEmXeque(Adversario(FJogadorAtual));
+
   FTerminada := TesteXequeMate(Adversario(FJogadorAtual)) or Empate;
   if not FTerminada then
   begin
