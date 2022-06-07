@@ -532,7 +532,17 @@ end;
 
 procedure TPartida.RealizarJogada(aOrigem, aDestino: IPosicao);
 var
-  pecaCapturada: IPeca;
+  pecaCapturada, pecaAux: IPeca;
+
+  procedure VerificaPromocaoDoPeao(aPeca: IPeca; aDestinoPeca: IPosicao);
+  begin
+    if ((aPeca.Cor = Branca) and (aDestinoPeca.Linha = 0)) or ((aPeca.Cor = Preta) and (aDestinoPeca.Linha = 7)) then
+    begin
+      aPeca := FTabuleiro.RetirarPeca(aDestinoPeca.Linha, aDestinoPeca.Coluna);
+      FTabuleiro.ColocarPeca(TRainha.Create(FTabuleiro, aPeca.Cor), aDestinoPeca);
+    end;
+  end;
+
 begin
   Tabuleiro.GetPeca(aOrigem).SalvarMovimentosPossiveis;
   ValidarPosicaoDeOrigem(aOrigem);
@@ -545,6 +555,10 @@ begin
     DesfazMovimento(aOrigem, aDestino, pecaCapturada);
     raise XadrezException.Create('Você não pode se colocar em xeque!');
   end;
+
+  pecaAux := FTabuleiro.GetPeca(aDestino);
+  if (pecaAux is TPeao) then
+    VerificaPromocaoDoPeao(pecaAux, aDestino);
 
   LimparReisEmXeque;
   FXeque := ReiEstaEmXeque(Adversario(FJogadorAtual));
