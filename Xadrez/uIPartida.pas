@@ -26,12 +26,15 @@ type
     procedure SetXeque(const Value: Boolean);
     function GetVulneravelEnpassant: IPeca;
     procedure SetVulneravelEnpassant(const Value: IPeca);
+    function GetVencedor: TVencedor;
+    procedure SetVencedor(const Value: TVencedor);
     function GetEmpate: Boolean;
     procedure ColocarNovaPeca(aColuna: char; aLinha: Integer; aPeca: IPeca);
     Procedure RealizarJogada(aOrigem, aDestino: IPosicao);
     procedure ValidarPosicaoDeOrigem(aOrigem: IPosicao);
     procedure ValidarPosicaoDeDestino(aOrigem, aDestino: IPosicao);
     function CorDoJogadorAtual: string;
+    function CorDoJogadorVencedor: string;
     procedure RetirarTodasPecasDoTabuleiro;
     procedure Reiniciar;
     property Tabuleiro           : ITabuleiro         read GetTabuleiro           write SetTabuleiro;
@@ -42,6 +45,7 @@ type
     property BrancasCapturadas   : IArrayOfCapturadas read GetBrancasCapturadas   write SetBrancasCapturadas;
     property Xeque               : Boolean            read GetXeque               write SetXeque;
     property VulneravelEnpassant : IPeca              read GetVulneravelEnpassant write SetVulneravelEnpassant;
+    property Vencedor            : TVencedor          read GetVencedor            write SetVencedor;
     property Empate              : Boolean            read GetEmpate;
   end;
 

@@ -17,6 +17,7 @@ type
     FBrancasCapturadas   : IArrayOfCapturadas;
     FXeque               : Boolean;
     FVulneravelEnpassant : IPeca;
+    FVencedor            : TVencedor;
     function ExecutarMovimento(aOrigem, aDestino: IPosicao): IPeca;
     procedure DesfazMovimento(aOrigem, aDestino: IPosicao; aPecaCapturada: IPeca);
     procedure ColocarPecasNoTabuleiro;
@@ -45,6 +46,8 @@ type
     procedure SetXeque(const Value: Boolean);
     function GetVulneravelEnpassant: IPeca;
     procedure SetVulneravelEnpassant(const Value: IPeca);
+    function GetVencedor: TVencedor;
+    procedure SetVencedor(const Value: TVencedor);
     function GetEmpate: Boolean;
   public
     property Tabuleiro           : ITabuleiro         read GetTabuleiro           write SetTabuleiro;
@@ -55,6 +58,7 @@ type
     property BrancasCapturadas   : IArrayOfCapturadas read GetBrancasCapturadas   write SetBrancasCapturadas;
     property Xeque               : Boolean            read GetXeque               write SetXeque;
     property VulneravelEnpassant : IPeca              read GetVulneravelEnpassant write SetVulneravelEnpassant;
+    property Vencedor            : TVencedor          read GetVencedor            write SetVencedor;
     property Empate              : Boolean            read GetEmpate;
     constructor Create;
     destructor Destroy; override;
@@ -63,6 +67,7 @@ type
     procedure ValidarPosicaoDeOrigem(aOrigem: IPosicao);
     procedure ValidarPosicaoDeDestino(aOrigem, aDestino: IPosicao);
     function CorDoJogadorAtual: string;
+    function CorDoJogadorVencedor: string;
     procedure RetirarTodasPecasDoTabuleiro;
     procedure Reiniciar;
   end;
@@ -305,6 +310,44 @@ end;
 function TPartida.GetEmpate: Boolean;
 begin
   //TODO:
+  //
+  //  1 - Insuficiência de material
+  //  (1 Rei) + (1 Rei)
+  //  (1 Rei) + (1 Rei / 1 Bispo)
+  //  (1 Rei) + (1 Rei / 1 Cavalo)
+  //  (1 Rei) + (1 Rei / 2 Cavalo)
+  //
+  //  2 - Afogamento
+  //  É a situação na qual um dos jogadores não tem mais nenhum movimento para
+  //  fazer, mas o seu Rei não está sendo atacado. Se não está em xeque, não tem como
+  //  estar em xeque-mate. Como não tem movimentos para fazer, a partida estará empatada
+  //  por afogamento.
+  //  (O Rei preto não está atacado por ninguém. Se for a vez das pretas jogarem, não há lance para fazer. Será empate.)
+  //  (Não é comum, mas pode ocorrer afogamento com várias peças. Desde que não tenha lances a fazer.)
+  //
+  //  3 - Regra dos 50 lances
+  //  A partida estará empatada se um dos adversários contar um total de 50 lances
+  //  seguidos sem que tenha havido qualquer captura ou lance de Peão. Essa situação é
+  //  comum de ocorrer quando um dos jogadores está tentando dar xeque-mate com poucas
+  //  peças no tabuleiro. O adversário que tem só o Rei deve iniciar a contagem dos 50 lances
+  //  para que a partida não fique sem fim.
+  //  Mas atenção! Cada vez que um Peão é movido ou uma peça é capturada, a contagem dos 50 lances
+  //  começa de novo!! Por isso esse empate só é comum de acontecer quando existem poucas peças no tabuleiro.
+  //
+  //  4 - Comum acordo
+  //  Ocorre quando os adversários resolvem não mais jogar a posição e combinam
+  //  o empate entre si. Essa decisão cabe a cada um dos jogadores, que não pode ser obrigado a aceitar o empate oferecido
+  //
+  //  5 - Xeque-perpétuo
+  //  Esse empate surge quando são feitos xeques iguais por três vezes seguidas.
+  //  Pode ocorrer porque os jogadores pretendem empatar e repetem as jogadas de
+  //  propósito. Mas também pode ocorrer de modo forçado, situação na qual o lado que tem
+  //  o Rei levando xeque não tem outra opção para fugir da sequência de ataques.
+  //
+  //  6 - Tripla repetição de jogadas
+  //  Essa situação ocorre da mesma forma que o xeque-perpétuo, com repetição
+  //  de jogadas por três vezes. Mas, aqui, não precisa envolver xeque ao Rei. Pode ser qualquer repetição de jogadas
+
   Result := False;
 end;
 
@@ -336,6 +379,11 @@ end;
 function TPartida.GetVulneravelEnpassant: IPeca;
 begin
   Result := FVulneravelEnpassant;
+end;
+
+function TPartida.GetVencedor: TVencedor;
+begin
+  Result := FVencedor;
 end;
 
 function TPartida.GetXeque: Boolean;
@@ -376,6 +424,11 @@ end;
 procedure TPartida.SetVulneravelEnpassant(const Value: IPeca);
 begin
   FVulneravelEnpassant := Value;
+end;
+
+procedure TPartida.SetVencedor(const Value: TVencedor);
+begin
+  FVencedor := Value;
 end;
 
 procedure TPartida.SetReiEmXeque(aCor: TCor);
@@ -543,6 +596,19 @@ var
     end;
   end;
 
+  procedure DefinirResultadoDaPartida;
+  begin
+    if Empate then
+      FVencedor := TVencedor.Empate
+    else
+    begin
+      if FJogadorAtual = Branca then
+        FVencedor := TVencedor.Brancas
+      else if FJogadorAtual = Preta then
+        FVencedor := TVencedor.Pretas;
+    end;
+  end;
+
 begin
   Tabuleiro.GetPeca(aOrigem).SalvarMovimentosPossiveis;
   ValidarPosicaoDeOrigem(aOrigem);
@@ -567,7 +633,9 @@ begin
     SetReiEmXeque(Adversario(FJogadorAtual));
 
   FTerminada := TesteXequeMate(Adversario(FJogadorAtual)) or Empate;
-  if not FTerminada then
+  if FTerminada then
+    DefinirResultadoDaPartida
+  else
   begin
     Inc(FTurno);
     MudarJogador;
@@ -658,6 +726,15 @@ begin
     Result := 'Preta';
 end;
 
+function TPartida.CorDoJogadorVencedor: string;
+begin
+  Result := EmptyStr;
+  if FVencedor = TVencedor.Brancas then
+    Result := 'Branca'
+  else if FVencedor = TVencedor.Pretas then
+    Result := 'Preta';
+end;
+
 procedure TPartida.RetirarTodasPecasDoTabuleiro;
 begin
   for var i: integer := 0 to FTabuleiro.Linhas - 1 do
@@ -694,11 +771,12 @@ end;
 procedure TPartida.Reiniciar;
 begin
   FTabuleiro           := TTabuleiroSingleton.GetInstance(8, 8);
-  Turno                := 1;
+  FTurno               := 1;
   FJogadorAtual        := Branca;
   FTerminada           := False;
   FXeque               := False;
   FVulneravelEnpassant := nil;
+  FVencedor            := TVencedor.PartidaEmAndamento;
   SetLength(FBrancasCapturadas, 16);
   SetLength(FPretasCapturadas, 16);
   RetirarTodasPecasDoTabuleiro;

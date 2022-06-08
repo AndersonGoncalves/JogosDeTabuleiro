@@ -110,8 +110,13 @@ begin
 
   if aPartida.Terminada then
   begin
-    writeln('XEQUE-MATE');
-    writeln('Vencedor: ' + aPartida.CorDoJogadorAtual);
+    if aPartida.Empate then
+      writeln('EMPATE')
+    else
+    begin
+      writeln('XEQUE-MATE');
+      writeln('Vencedor: ' + aPartida.CorDoJogadorVencedor);
+    end;
   end
   else
   begin
