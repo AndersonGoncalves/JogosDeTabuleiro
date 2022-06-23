@@ -308,47 +308,75 @@ begin
 end;
 
 function TPartida.GetEmpate: Boolean;
-begin
-  //TODO:
-  //
-  //  1 - Insuficiência de material
-  //  (1 Rei) + (1 Rei)
-  //  (1 Rei) + (1 Rei / 1 Bispo)
-  //  (1 Rei) + (1 Rei / 1 Cavalo)
-  //  (1 Rei) + (1 Rei / 2 Cavalo)
-  //
-  //  2 - Afogamento
-  //  É a situação na qual um dos jogadores não tem mais nenhum movimento para
-  //  fazer, mas o seu Rei não está sendo atacado. Se não está em xeque, não tem como
-  //  estar em xeque-mate. Como não tem movimentos para fazer, a partida estará empatada
-  //  por afogamento.
-  //  (O Rei preto não está atacado por ninguém. Se for a vez das pretas jogarem, não há lance para fazer. Será empate.)
-  //  (Não é comum, mas pode ocorrer afogamento com várias peças. Desde que não tenha lances a fazer.)
-  //
-  //  3 - Regra dos 50 lances
-  //  A partida estará empatada se um dos adversários contar um total de 50 lances
-  //  seguidos sem que tenha havido qualquer captura ou lance de Peão. Essa situação é
-  //  comum de ocorrer quando um dos jogadores está tentando dar xeque-mate com poucas
-  //  peças no tabuleiro. O adversário que tem só o Rei deve iniciar a contagem dos 50 lances
-  //  para que a partida não fique sem fim.
-  //  Mas atenção! Cada vez que um Peão é movido ou uma peça é capturada, a contagem dos 50 lances
-  //  começa de novo!! Por isso esse empate só é comum de acontecer quando existem poucas peças no tabuleiro.
-  //
-  //  4 - Comum acordo
-  //  Ocorre quando os adversários resolvem não mais jogar a posição e combinam
-  //  o empate entre si. Essa decisão cabe a cada um dos jogadores, que não pode ser obrigado a aceitar o empate oferecido
-  //
-  //  5 - Xeque-perpétuo
-  //  Esse empate surge quando são feitos xeques iguais por três vezes seguidas.
-  //  Pode ocorrer porque os jogadores pretendem empatar e repetem as jogadas de
-  //  propósito. Mas também pode ocorrer de modo forçado, situação na qual o lado que tem
-  //  o Rei levando xeque não tem outra opção para fugir da sequência de ataques.
-  //
-  //  6 - Tripla repetição de jogadas
-  //  Essa situação ocorre da mesma forma que o xeque-perpétuo, com repetição
-  //  de jogadas por três vezes. Mas, aqui, não precisa envolver xeque ao Rei. Pode ser qualquer repetição de jogadas
 
-  Result := False;
+  function InsuficienciaMaterial: Boolean;
+  begin
+    //TODO: Insuficiência de material
+    //  (1 Rei) + (1 Rei)
+    //  (1 Rei) + (1 Rei / 1 Bispo)
+    //  (1 Rei) + (1 Rei / 1 Cavalo)
+    //  (1 Rei) + (1 Rei / 2 Cavalo)
+    Result := False;
+  end;
+
+  function Afogamento: Boolean;
+  begin
+    //TODO: Afogamento
+    //  É a situação na qual um dos jogadores não tem mais nenhum movimento para
+    //  fazer, mas o seu Rei não está sendo atacado. Se não está em xeque, não tem como
+    //  estar em xeque-mate. Como não tem movimentos para fazer, a partida estará empatada
+    //  por afogamento.
+    //  (O Rei preto não está atacado por ninguém. Se for a vez das pretas jogarem, não há lance para fazer. Será empate.)
+    //  (Não é comum, mas pode ocorrer afogamento com várias peças. Desde que não tenha lances a fazer.)
+    Result := False;
+  end;
+
+  function RegraDos50Lances: Boolean;
+  begin
+    //TODO: Regra dos 50 lances
+    //  A partida estará empatada se um dos adversários contar um total de 50 lances
+    //  seguidos sem que tenha havido qualquer captura ou lance de Peão. Essa situação é
+    //  comum de ocorrer quando um dos jogadores está tentando dar xeque-mate com poucas
+    //  peças no tabuleiro. O adversário que tem só o Rei deve iniciar a contagem dos 50 lances
+    //  para que a partida não fique sem fim.
+    //  Mas atenção! Cada vez que um Peão é movido ou uma peça é capturada, a contagem dos 50 lances
+    //  começa de novo!! Por isso esse empate só é comum de acontecer quando existem poucas peças no tabuleiro.
+    Result := False;
+  end;
+
+  function ComumAcordo: Boolean;
+  begin
+    //TODO: Comum acordo
+    //  Ocorre quando os adversários resolvem não mais jogar a posição e combinam
+    //  o empate entre si. Essa decisão cabe a cada um dos jogadores, que não pode ser obrigado a aceitar o empate oferecido
+    Result := False;
+  end;
+
+  function XequePerpetuo: Boolean;
+  begin
+    //TODO: Xeque-perpétuo
+    //  Esse empate surge quando são feitos xeques iguais por três vezes seguidas.
+    //  Pode ocorrer porque os jogadores pretendem empatar e repetem as jogadas de
+    //  propósito. Mas também pode ocorrer de modo forçado, situação na qual o lado que tem
+    //  o Rei levando xeque não tem outra opção para fugir da sequência de ataques.
+    Result := False;
+  end;
+
+  function TriplaRepeticao: Boolean;
+  begin
+    //TODO: Tripla repetição de jogadas
+    //  Essa situação ocorre da mesma forma que o xeque-perpétuo, com repetição
+    //  de jogadas por três vezes. Mas, aqui, não precisa envolver xeque ao Rei. Pode ser qualquer repetição de jogadas
+    Result := False;
+  end;
+
+begin
+  Result := InsuficienciaMaterial or
+            Afogamento            or
+            RegraDos50Lances      or
+            ComumAcordo           or
+            XequePerpetuo         or
+            TriplaRepeticao;
 end;
 
 function TPartida.GetJogadorAtual: TCor;
